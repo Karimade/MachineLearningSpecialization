@@ -1,45 +1,71 @@
 # Linear Regression for Classification problems
-## What is Classification
-- The output variable (y) has a known range of values, meaning it can be only one of two values(classes,categories) in what is called **Binary Classification**
+## What is Classification?  
+- In **classification problems**, the target variable `y` belongs to a **set of categories** (e.g., `0` or `1` in **binary classification**, or multiple categories in multi-class problems).  
+- Example: Spam (`1`) vs Not Spam (`0`).  
+
 ![Classification Problem](/Images/C1_W3_ClassificationProbelm.png)  
-*Figure: Defining what is classification.*
+*Figure: Defining classification.*  
+
 ---
 ## Why not Linear Regression for Classification
+- In regression, predictions can take **any real value** (negative, >1, etc.).  
+- In classification, we need outputs limited to **0 or 1** (or probabilities between them).  
+- One workaround: set a **threshold** (e.g., predict `1` if ≥ 0.5, else `0`).  
+- **Problem:** The decision boundary shifts unpredictably if the data is scattered, leading to poor separation.  
+
 ![Linear Regression for Classification](/Images/C1_W3_LinearRegressionForClassificationProblem.png)  
-*Figure: Showing the result of using linear regression for classification problem.*
-- from the figure we have two classes, we will denote them like `0` and `1`, so `y` should be `0` or `1`.
-- Linear regression predicts not just the values of 0 and 1 but all numbers between 0 and 1 or even less than 0 or greater than 1.
-- We could make a threshold to take like from `0` to `0.5` as `0` and the other range as 1.
-- It will work for some cases, but if the data is scattered max on the right then the decision boundary also shift like in the figure, now things began to began worth.
-## Logistic Regression and Sigmoid Function
-- It is about predicitng a specific classes of categories Like `true` or `false`.
-- To make the output identified by possible values like `0` or `1` we use the **Sigmoid Function**
-- **Sigmoid Function** :No matter how the ouput is large or small , it will always has a value between 0 and 1.
+*Figure: Linear regression failing at classification.*  
+
+---
+
+## Logistic Regression and the Sigmoid Function  
+
+To solve this, we use **logistic regression**:  
+- Instead of outputting raw values, it passes the linear model through the **sigmoid function**:  
+
+`g(z) = 1 / (1 + e^(-z))`
+
+
+- The sigmoid squashes any input into the range **(0,1)**.  
+- Model:  
+
+`f(x) = g(w · x + b)`
+
+
 ![Sigmoid Function](/Images/C1_W3_SigmoidFunction.png)  
-*Figure: Showing the mathematics of the sigmoid function.*
+*Figure: The sigmoid function.*  
+
 ---
-- So now we will take the prediction value of the model `f(x) = w.b + b` and pass it to the sigmoid function.
-- So now the model becomes `f(x) = g(w.x + b)`
-![Logistic Regression Model](/Images/C1_W3_LogisticRegression.png)  
-*Figure: Showing the Logisic Regression model.*
 
-### Interpretting Logisitc Regression ouput
-- Think about the ouput of the logistic regression as the probability that the class will equal to one given a certain input `x`
- ![Logistic Regression output](/Images/C1_W3_LogisticRegressionOutput.png)  
- *Figure: Showing how to interpret logistic regression output.*
+### Interpreting Logistic Regression Output  
+- The output of logistic regression = **probability** that the input belongs to the positive class (`y = 1`).  
+- Example: If `f(x) = 0.8`, then there’s an **80% chance** the input belongs to class `1`.  
 
- ## Decision Boundary
- - The line that separates the positive and the negative predections (it is computed by making the prediction model equal to zero).
+![Logistic Regression output](/Images/C1_W3_LogisticRegressionOutput.png)  C1_W3_LogisticRegressionOuput
+*Figure: Logistic regression output interpretation.*  
+
+---
+
+
+## Decision Boundary  
+
+- A **decision boundary** separates positive predictions (`y=1`) from negative ones (`y=0`).  
+- Computed by solving:  
+
+`w · x + b = 0`
+
+
 ![Decision Boundary](/Images/C1_W3_DecisionBoundary.png)  
-*Figure: Showing the decision boundary explanation of the logistic regression*  
----
+*Figure: Linear decision boundary.*  
+
+- With only **linear features**, the boundary is always a straight line (linear).  
+- Adding **polynomial features** allows **nonlinear boundaries** that better fit complex data.  
+
 ![Decision Boundary example](/Images/C1_W3_DecisionBoundaryExample.png)  
-*Figure: Showing an example on the decision boundary of the logistic regression* 
----
-- If we used only non-polynomial features in logistic regression then the decision boundary will always linear.
-- The non linear decision boundary arises when using polynomial features in logistic regression.
+*Figure: Example of linear decision boundary.*  
+
 ![Non Linear Decision Boundary example](/Images/C1_W3_NonLinearDecisionBoundary.png)  
-*Figure: Showing an example on the non linear decision boundary of the logistic regression* 
----
+*Figure: Example of nonlinear decision boundary using polynomial features.*  
+
 ![Complex Non Linear Decision Boundary example](/Images/C1_W3_ComplexNonLinearDecisionBoundary.png)  
-*Figure: Showing an example on the complex non linear decision boundary of the logistic regression* 
+*Figure: Complex nonlinear decision boundary.*  
